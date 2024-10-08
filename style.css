@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h3 {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    left: 0;
+    top: -10px;
+    text-align: left;
+    width: 100%;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 0 10px;
+    position: relative;
+}
+
+.line:after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    border-top: 1px dotted rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+}
+
+.form-control {
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 80%;
+    max-width: 900px;
+}
+
+.form-container {
+    padding: 40px;
+    width: 50%;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-container input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container input {
+    margin-right: 10px;
+}
+
+button {
+    background-color: #6c63ff;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #5a54e1;
+}
+
+.login-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.illustration-container {
+    width: 50%;
+}
+
+.illustration-container img {
+    width: 100%;
+    height: auto;
+}
