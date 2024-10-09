@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade Semanal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@latest/dist/apexcharts.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4B006E;
+            padding: 5px;
+            width: 100%;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100px;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 60px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-decoration: none;
+            color: white;
+        }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .navbar .profile .info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .navbar .profile .info span {
+            font-size: 14px;
+            color: #e1e1e1;
+        }
+
+        .navbar .profile .info .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .navbar .profile .search {
+            margin-top: 10px;
+        }
+
+        .navbar .profile .search input {
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            width: 200px;
+            margin-right: 40px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: green;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .content {
+            margin-top: 120px;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4B006E;
+            color: white;
+        }
+
+        .card {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #4B006E;
+            color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 450px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .add-button {
+            border-radius: 20px;
+            padding: 10px 20px;
+            background-color: #4B006E;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            float: right;
+        }
+
+        .add-button:hover {
+            background-color: #5e1c91;
+        }
+
+        .tipo-entrada {
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-right: 30px;
+            display: inline-block;
+        }
+
+        .tipo-entrada:hover {
+            background-color: darkgreen;
+        }
+
+        .tipo-saida {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .tipo-saida:hover {
+            background-color: darkred;
+        }
+
+        .remove-button {
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .remove-button:hover {
+            background-color: darkviolet;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .modal-content .tipo-container {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 5px;
+        }
+
+        .modal-content input[type="date"],
+        .modal-content input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 3px;
+        }
+
+        .add-modal-button {
+            background-color: #9370DB;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .add-modal-button:hover {
+            background-color: #7B68EE; 
+        }
+
+        .add-modal-button-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <a href="inicial.html" class="title">Dashboard</a>
+            <div class="profile">
+                <img src="https://i.pravatar.cc/60" alt="Foto de Perfil">
+                <div class="info">
+                    <div class="name">Lucas de Souza<span class="status-dot"></span></div>
+                    <span>lucasteste@gmail.com</span>
+                    <div class="search">
+                        <input type="text" placeholder="Search Activities, messages">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <h1 class="text-center">Atividade Semanal</h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="chart-container">
+                        <div id="chart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="text-center">Últimas Transações</h1>
+            <div class="card">
+                <table id="transactionTable">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Data</th>
+                            <th>Detalhes</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <button class="add-button" onclick="openModal()">Adicionar Transação</button>
+        </div>
+    </main>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Adicionar Transação</h3>
+            <div>
+                <label for="tipo">Tipo:</label>
+                <div class="tipo-container">
+                    <button class="tipo-entrada" onclick="selectTipo('Entrada')">Entrada</button>
+                    <button class="tipo-saida" onclick="selectTipo('Saída')">Saída</button>
+                </div>
+            </div>
+            <label for="data">Data:</label>
+            <input type="date" id="data" required>
+            <label for="detalhes">Detalhes:</label>
+            <input type="text" id="detalhes" placeholder="Detalhes" required>
+            <label for="valor">Valor:</label>
+            <input type="text" id="valor" placeholder="Valor" required oninput="formatCurrency(this)">
+            <div class="add-modal-button-container">
+                <button class="add-modal-button" onclick="addTransaction()">Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        var options = {
+            series: [{
+                name: 'Crédito',
+                data: [100, 55, 57, 56, 61, 58, 63, 60, 66]
+            }, {
+                name: 'Débito',
+                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+            }, {
+                name: 'Rendimento',
+                data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+            }],
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    endingShape: 'rounded',
+                    columnWidth: '55%',
+                },
+            },
+            dataLabels: {
+                enabled: true
+            },
+            xaxis: {
+                categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set'],
+            },
+            yaxis: {
+                title: {
+                    text: 'Valor (R$)',
+                },
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                shared: true,
+                intersect: false
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+        function formatCurrency(input) {
+            let value = input.value.replace(/\D/g, '');
+            value = (value / 100).toFixed(2) + '';
+            value = value.replace('.', ',');
+            value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+            input.value = value;
+        }
+
+        let transactions = [];
+        let selectedTipo = '';
+
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        function selectTipo(tipo) {
+            selectedTipo = tipo;
+            const entradaBtn = document.querySelector('.tipo-entrada');
+            const saidaBtn = document.querySelector('.tipo-saida');
+            if (tipo === 'Entrada') {
+                entradaBtn.style.border = '2px solid white';
+                saidaBtn.style.border = 'none';
+            } else {
+                saidaBtn.style.border = '2px solid white';
+                entradaBtn.style.border = 'none';
+            }
+        }
+
+        function addTransaction() {
+            const dataInput = document.getElementById("data").value; 
+            const dataFormatada = new Date(dataInput).toLocaleDateString('pt-BR'); 
+            const detalhes = document.getElementById("detalhes").value;
+            const valor = document.getElementById("valor").value.replace(/\./g, '').replace(',', '.');
+        
+            if (selectedTipo && dataFormatada && detalhes && valor) {
+                transactions.push({
+                    tipo: selectedTipo,
+                    data: dataFormatada, 
+                    detalhes: detalhes,
+                    valor: parseFloat(valor),
+                });
+        
+                updateTable();
+                closeModal();
+                clearModalFields();
+            } else {
+                alert("Por favor, preencha todos os campos.");
+            }
+        }
+
+        function clearModalFields() {
+            document.getElementById("data").value = "";
+            document.getElementById("detalhes").value = "";
+            document.getElementById("valor").value = "";
+            selectedTipo = '';
+            const entradaBtn = document.querySelector('.tipo-entrada');
+            const saidaBtn = document.querySelector('.tipo-saida');
+            entradaBtn.style.border = 'none';
+            saidaBtn.style.border = 'none';
+        }
+
+        function updateTable() {
+            const tbody = document.querySelector("#transactionTable tbody");
+            tbody.innerHTML = "";
+            transactions.forEach((transaction, index) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td><button class="${transaction.tipo === 'Entrada' ? 'tipo-entrada' : 'tipo-saida'}">${transaction.tipo}</button></td>
+                    <td>${transaction.data}</td>
+                    <td>${transaction.detalhes}</td>
+                    <td>R$ ${transaction.valor.toFixed(2).replace('.', ',')}</td>
+                    <td><button class="remove-button" onclick="removeTransaction(${index})">Remover</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function removeTransaction(index) {
+            transactions.splice(index, 1);
+            updateTable();
+        }
+    </script>
+</body>
+
+</html>

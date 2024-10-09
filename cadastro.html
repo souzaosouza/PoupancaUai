@@ -7,6 +7,28 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    .terms-agreement {
+      position: relative;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .terms-agreement:before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: #4B006E; /* cor do pontilhado */
+      margin-bottom: 10px;
+    }
+
+    .terms-agreement span {
+      color: #212529; /* cor do texto igual aos outros textos do formulário */
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
   <section class="vh-100" style="background-color: #eee;">
@@ -20,7 +42,7 @@
   
                   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Criar Conta</p>
   
-                  <form class="mx-1 mx-md-4">
+                  <form class="mx-1 mx-md-4" id="registrationForm">
   
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
@@ -54,16 +76,18 @@
                       </div>
                     </div>
   
-                    <div class="form-check d-flex justify-content-center mb-5">
-                      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                      <label class="form-check-label" for="form2Example3">
-                       eu concordo <a href="#!">Termos de Serviços</a>
-                      </label>
+                    <div class="terms-agreement">
+                      <div class="form-check d-flex justify-content-center mb-5">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                        <label class="form-check-label" for="form2Example3">
+                          eu concordo com os termos de Serviços
+                        </label>
+                      </div>
                     </div>
   
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-    <a href="concluirCadastro.html" class="btn btn-primary btn-lg">Próximo passo</a>
-</div>
+                      <button type="button" class="btn btn-primary btn-lg" onclick="checkAgreement()">Próximo passo</button>
+                    </div>
   
                   </form>
   
@@ -81,5 +105,43 @@
       </div>
     </div>
   </section>
+
+  
+  <div class="modal fade" id="termosModal" tabindex="-1" aria-labelledby="termosModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="termosModalLabel">Termos de Serviço</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Aqui estão os termos de serviço que você precisa ler e concordar:</p>
+          <ul>
+            <li>Termo 1: Descrição do termo 1.</li>
+            <li>Termo 2: Descrição do termo 2.</li>
+            <li>Termo 3: Descrição do termo 3.</li>
+            <li>Termo 4: Descrição do termo 4.</li>
+            <li>Termo 5: Descrição do termo 5.</li>
+          </ul>
+          <p>Por favor, leia atentamente todos os termos.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-rc0etj9YEO8Z0MykQ6PjS7d2lbTz4gYTO9MvXj/ye0C5PjLJ3gxd+ww4lUIqTkqH" crossorigin="anonymous"></script>
+  <script>
+    function checkAgreement() {
+      var checkbox = document.getElementById("form2Example3c");
+      if (!checkbox.checked) {
+        alert("Você deve concordar com os Termos de Serviço para continuar.");
+      } else {
+        window.location.href = "concluirCadastro.html"; 
+      }
+    }
+  </script>
 </body>
 </html>
