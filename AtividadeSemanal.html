@@ -255,7 +255,7 @@
         }
 
         .add-modal-button:hover {
-            background-color: #7B68EE; 
+            background-color: #7B68EE;
         }
 
         .add-modal-button-container {
@@ -268,7 +268,7 @@
 <body>
     <header>
         <div class="navbar">
-            <a href="inicial.html" class="title">Dashboard</a>
+            <a href="inicial.html" class="title">Poupança Uai</a>
             <div class="profile">
                 <img src="https://i.pravatar.cc/60" alt="Foto de Perfil">
                 <div class="info">
@@ -417,19 +417,19 @@
         }
 
         function addTransaction() {
-            const dataInput = document.getElementById("data").value; 
-            const dataFormatada = new Date(dataInput).toLocaleDateString('pt-BR'); 
+            const dataInput = document.getElementById("data").value;
+            const dataFormatada = new Date(dataInput).toLocaleDateString('pt-BR');
             const detalhes = document.getElementById("detalhes").value;
             const valor = document.getElementById("valor").value.replace(/\./g, '').replace(',', '.');
-        
+
             if (selectedTipo && dataFormatada && detalhes && valor) {
                 transactions.push({
                     tipo: selectedTipo,
-                    data: dataFormatada, 
+                    data: dataFormatada,
                     detalhes: detalhes,
                     valor: parseFloat(valor),
                 });
-        
+
                 updateTable();
                 closeModal();
                 clearModalFields();

@@ -1,169 +1,168 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Login</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-    
-        body {
-          font-family: Arial, sans-serif;
-        }
-    
-        .navbar {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          background-color: #4B006E; 
-          padding: 20px;
-          color: white;
-        }
-    
-        .navbar .title {
-          font-size: 24px;
-          font-weight: bold;
-        }
-    
-        .navbar .profile {
-          display: flex;
-          align-items: center;
-        }
-    
-        .navbar .profile img {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          margin-right: 15px;
-        }
-    
-        .navbar .profile .info {
-          display: flex;
-          flex-direction: column;
-        }
-    
-        .navbar .profile .info span {
-          font-size: 14px;
-          color: #e1e1e1;
-        }
-    
-        .navbar .profile .info .name {
-          font-size: 18px;
-          font-weight: bold;
-        }
-    
-        .navbar .profile .search {
-          margin-left: 20px;
-        }
-    
-        .navbar .profile .search input {
-          padding: 5px 10px;
-          border-radius: 20px;
-          border: none;
-          outline: none;
-        }
-    
-        .status-dot {
-          width: 10px;
-          height: 10px;
-          background-color: green;
-          border-radius: 50%;
-          display: inline-block;
-          margin-left: 5px;
-        }
-    </style>
-    <script>
-        function login() {
-            var email = document.getElementById('form1Example13').value;
-            var password = document.getElementById('form1Example23').value;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Login</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-            if (email && password) {
-                window.location.href = 'inicial.html';
-            } else {
-                alert('Por favor, preencha todos os campos.');
-            }
-        }
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-        // Função para capturar o evento de pressionar a tecla Enter
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault(); // Evitar o envio padrão do formulário
-                login(); // Chamar a função de login
-            }
-        }
-    </script>
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #4B006E;
+      padding: 20px;
+      color: white;
+    }
+
+    .navbar .title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navbar .profile {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .profile img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .navbar .profile .info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar .profile .info span {
+      font-size: 14px;
+      color: #e1e1e1;
+    }
+
+    .navbar .profile .info .name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .navbar .profile .search {
+      margin-left: 20px;
+    }
+
+    .navbar .profile .search input {
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: green;
+      border-radius: 50%;
+      display: inline-block;
+      margin-left: 5px;
+    }
+  </style>
+  <script>
+    function login() {
+      var email = document.getElementById('form1Example13').value;
+      var password = document.getElementById('form1Example23').value;
+
+      if (email && password) {
+
+        window.location.href = 'inicial.html';
+      } else {
+
+        alert('Por favor, preencha todos os campos.');
+      }
+    }
+  </script>
 </head>
+
 <body>
-    <section class="vh-100">
-        <div class="container py-5 h-100">
-            <div class="row d-flex align-items-center justify-content-center h-100">
-                <div class="col-md-7 col-lg-6 col-xl-5">
-                    <img src="https://img.freepik.com/vetores-premium/personagem-de-desenho-grafico-vetorial-de-ilustracao-de-apresentacao-de-negocios_516790-821.jpg?w=996"
-                        class="img-fluid" alt="Phone image">
-                </div>
-                <div class="col-md-5 col-lg-4 col-xl-3 offset-xl-1">
-                    <form onsubmit="login(); return false;" onkeypress="handleKeyPress(event)">
-                        <h3 class="text-center">LOGIN</h3>
-                        
-                        <label class="form-label" for="form1Example13">Endereço de e-mail</label>
-                        <div data-mdb-input-init class="form-outline mb-4">
-                            <input type="email" id="form1Example13" class="form-control form-control-lg" />
-                        </div>
-
-                        <label class="form-label" for="form1Example23">Senha</label>
-                        <div data-mdb-input-init class="form-outline mb-4">
-                            <input type="password" id="form1Example23" class="form-control form-control-lg" />
-                        </div>
-
-                        <div class="d-flex justify-content-around align-items-center mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-                                <label class="form-check-label" for="form1Example3">Lembrar-me</label>
-                            </div>
-                            <a href="#!" style="font-size: 12px; margin-left: -20px;">Esqueci minha senha</a>
-                        </div>
-
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="login()">Entrar</button>
-                      
-                        <div class="account-text" style="margin-top: 15px; text-align: center;">
-                            <p style="display: inline;">Não possui uma conta?</p> 
-                            <a href="cadastro.html" style="display: inline; color: blue; text-decoration: underline;">Inscreva-se</a>
-                        </div>
-
-                        <div class="divider d-flex align-items-center my-4">
-                            <div class="line"></div>
-                            <span class="mx-3 text-muted">OU</span>
-                            <div class="line"></div>
-                        </div>
-
-                        <div class="d-flex justify-content-center gap-3">
-                            <a data-mdb-ripple-init class="btn btn-lg btn-block"
-                                style="background-color: #DB4437; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
-                                href="#!" role="button">
-                                <i class="fab fa-google" style="color: white; font-size: 24px;"></i>
-                            </a>
-                            <a data-mdb-ripple-init class="btn btn-lg btn-block"
-                                style="background-color: #000000; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
-                                href="#!" role="button">
-                                <i class="fab fa-apple" style="color: white; font-size: 24px;"></i>
-                            </a>
-                            <a data-mdb-ripple-init class="btn btn-lg btn-block"
-                                style="background-color: #3b5998; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
-                                href="#!" role="button">
-                                <i class="fab fa-facebook-f" style="color: white; font-size: 24px;"></i>
-                            </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-7 col-lg-6 col-xl-5">
+          <img
+            src="https://img.freepik.com/vetores-premium/personagem-de-desenho-grafico-vetorial-de-ilustracao-de-apresentacao-de-negocios_516790-821.jpg?w=996"
+            class="img-fluid" alt="Phone image">
         </div>
-    </section>
+        <div class="col-md-5 col-lg-4 col-xl-3 offset-xl-1">
+          <form>
+            <h3 class="text-center">LOGIN</h3>
+
+            <label class="form-label" for="form1Example13">Endereço de e-mail</label>
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="email" id="form1Example13" class="form-control form-control-lg" />
+            </div>
+
+            <label class="form-label" for="form1Example23">Senha</label>
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="password" id="form1Example23" class="form-control form-control-lg" />
+            </div>
+
+            <div class="d-flex justify-content-around align-items-center mb-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+                <label class="form-check-label" for="form1Example3">Lembrar-me</label>
+              </div>
+              <a href="#!" style="font-size: 12px; margin-left: -20px;">Esqueci minha senha</a>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="login()">Entrar</button>
+
+            <div class="account-text" style="margin-top: 15px; text-align: center;">
+              <p style="display: inline;">Não possui uma conta?</p>
+              <a href="cadastro.html" style="display: inline; color: blue; text-decoration: underline;">Inscreva-se</a>
+            </div>
+
+            <div class="divider d-flex align-items-center my-4">
+              <div class="line"></div>
+              <span class="mx-3 text-muted">OU</span>
+              <div class="line"></div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3">
+              <a data-mdb-ripple-init class="btn btn-lg btn-block"
+                style="background-color: #DB4437; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
+                href="#!" role="button">
+                <i class="fab fa-google" style="color: white; font-size: 24px;"></i>
+              </a>
+              <a data-mdb-ripple-init class="btn btn-lg btn-block"
+                style="background-color: #000000; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
+                href="#!" role="button">
+                <i class="fab fa-apple" style="color: white; font-size: 24px;"></i>
+              </a>
+              <a data-mdb-ripple-init class="btn btn-lg btn-block"
+                style="background-color: #3b5998; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
+                href="#!" role="button">
+                <i class="fab fa-facebook-f" style="color: white; font-size: 24px;"></i>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 </body>
+
 </html>
