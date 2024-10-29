@@ -17,6 +17,11 @@
             box-sizing: border-box;
         }
 
+        .navbar a {
+            text-decoration: none;
+        }
+
+
         body {
             font-family: Arial, sans-serif;
         }
@@ -25,7 +30,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #4B006E;
+            background-color: #a42924;
             padding: 5px;
             width: 100%;
             color: white;
@@ -34,9 +39,6 @@
             left: 0;
             height: 100px;
             z-index: 1000;
-
-
-
         }
 
         .navbar .title {
@@ -44,12 +46,16 @@
             font-weight: bold;
             margin-left: 60px;
             font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            text-shadow: none;
+            text-decoration: none;
         }
 
         .navbar .profile {
             display: flex;
             align-items: center;
         }
+
 
         .navbar .profile img {
             width: 60px;
@@ -264,6 +270,39 @@
         .image-container img {
             width: 400px;
             height: auto;
+
+        }
+
+        .assistant-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #a42924;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .assistant-button:hover {
+            background-color: #9e2929;
+            transform: scale(1.1);
+        }
+
+        .muted {
+            background-color: #6c757d;
+        }
+
+        .muted:hover {
+            background-color: #5a6268;
         }
     </style>
 </head>
@@ -271,14 +310,17 @@
 <body>
     <header>
         <div class="navbar">
-            <div class="title">Dashboard</div>
-            <div class="profile">
+            <a href="inicial.html" class="title" style="display: flex; align-items: center;">
+                <img src="logo.png" alt="Logo" style="width: 80px; height: 80px; margin-right: 8px;">
+                <span style="display: flex; align-items: center;">Poupança Uai</span>
+            </a>
+            <div class="profile" style="margin-right: 60px;">
                 <img src="https://i.pravatar.cc/60" alt="Foto de Perfil">
                 <div class="info">
                     <div class="name">Lucas de Souza<span class="status-dot"></span></div>
                     <span>lucasteste@gmail.com</span>
                     <div class="search">
-                        <input type="text" placeholder="search">
+                        <input type="text" placeholder="Search Activities, messages">
                     </div>
                 </div>
             </div>
@@ -308,9 +350,9 @@
                         </a>
                     </div>
                     <div class="card2">
-                        <a href="cartoes.html"
+                        <a href="lancamentos.html"
                             style="text-decoration: none; color: black; display: block; height: 100%; padding: 20px;">
-                            <h5 class="card-title" style="text-align: center;">Cartões</h5>
+                            <h5 class="card-title" style="text-align: center;">Lançamentos</h5>
                         </a>
                     </div>
                     <div class="card3">
@@ -344,7 +386,109 @@
             </section>
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const readPageContent = () => {
+                const title = document.querySelector('h1').innerText;
+                const description = document.querySelector('.welcome p').innerText;
+                const sections = document.querySelectorAll('.card-title');
+                const sectionTitles = Array.from(sections).map(section => section.innerText).join(', ');
 
+                const speechText = `Bem-vindo! ${title}. ${description}. As seções disponíveis são: ${sectionTitles}.`;
+                const speech = new SpeechSynthesisUtterance(speechText);
+                speech.lang = 'pt-BR';
+                speechSynthesis.speak(speech);
+            };
+
+            const assistantButton = document.createElement('button');
+            assistantButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+            assistantButton.classList.add('assistant-button');
+            assistantButton.onclick = readPageContent;
+            document.body.appendChild(assistantButton);
+
+
+            assistantButton.classList.toggle('muted', speechSynthesis.speaking);
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const readText = (text) => {
+                const speech = new SpeechSynthesisUtterance(text);
+                speech.lang = 'pt-BR';
+                speechSynthesis.speak(speech);
+            };
+
+            const titleElement = document.querySelector('h1');
+            titleElement.addEventListener('mouseover', () => {
+                readText(titleElement.innerText);
+            });
+
+
+            const descriptionElement = document.querySelector('.welcome p');
+            descriptionElement.addEventListener('mouseover', () => {
+                readText(descriptionElement.innerText);
+            });
+
+
+            const sectionTitles = document.querySelectorAll('.card-title');
+            sectionTitles.forEach(section => {
+                section.addEventListener('mouseover', () => {
+                    readText(section.innerText);
+                });
+            });
+
+
+            const welcomeContainer = document.querySelector('.welcome');
+            welcomeContainer.addEventListener('mouseover', () => {
+                readText('Você está na página inicial, onde pode explorar diferentes seções do site.');
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            let assistantEnabled = false;
+
+            const speak = (text) => {
+                const speech = new SpeechSynthesisUtterance(text);
+                speech.lang = 'pt-BR';
+                speechSynthesis.speak(speech);
+            };
+
+            const toggleAssistant = () => {
+                assistantEnabled = !assistantEnabled;
+
+                const message = assistantEnabled
+                    ? 'Assistente virtual ativado.'
+                    : 'Assistente virtual desativado.';
+
+                speak(message);
+
+
+                assistantButton.innerHTML = assistantEnabled
+                    ? '<i class="fas fa-volume-up"></i>'
+                    : '<i class="fas fa-volume-mute"></i>';
+            };
+
+            const readPageContent = () => {
+                if (!assistantEnabled) return;
+
+                const title = document.querySelector('h1').innerText;
+                const description = document.querySelector('.welcome p').innerText;
+                const sections = document.querySelectorAll('.card-title');
+                const sectionTitles = Array.from(sections).map(section => section.innerText).join(', ');
+
+                const speechText = `Bem-vindo! ${title}. ${description}. As seções disponíveis são: ${sectionTitles}.`;
+                speak(speechText);
+            };
+
+            const assistantButton = document.createElement('button');
+            assistantButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+            assistantButton.classList.add('assistant-button');
+            assistantButton.onclick = () => {
+                toggleAssistant();
+                readPageContent();
+            }; ic
+            document.body.appendChild(assistantButton);
+        });
+
+
+    </script>
 </body>
 
 </html>
