@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previsão de Gastos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar a {
+            text-decoration: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #a42924;
+            padding: 5px;
+            width: 100%;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100px;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 60px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            text-shadow: none;
+            text-decoration: none;
+        }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .navbar .profile .info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .navbar .profile .info span {
+            font-size: 14px;
+            color: #e1e1e1;
+        }
+
+        .navbar .profile .info .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .navbar .profile .search {
+            margin-top: 10px;
+        }
+
+        .navbar .profile .search input {
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            width: 200px;
+            margin-right: 40px;
+        }
+
+        .container {
+            padding: 120px 20px 20px; /* Add padding-top to avoid overlap with the navbar */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            width: 75%; /* Increased width of the chart */
+            height: 400px; /* Increased height of the chart */
+            max-width: 800px;
+        }
+
+        .leitura {
+            width: 25%; 
+            margin-right: -150px;
+            
+        }
+
+        .controls {
+            display: none; /* Initially hidden */
+            flex-direction: column;
+            margin-top: 20px;
+            position: fixed; /* Positioned relative to the viewport */
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Adjust position */
+            background-color: #f1f1f1; /* Background color */
+            padding: 20px; /* Padding inside the controls */
+            border: 2px solid #a42924; /* Border color matching navbar */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+            z-index: 1001; /* Ensure it's above other elements */
+        }
+
+        .controls input,
+        .controls select,
+        .controls button {
+            margin: 5px;
+            padding: 10px;
+            width: 150px;
+        }
+
+        .controls button {
+            background-color: #a42924; /* Color of the buttons */
+            color: white; /* Text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor */
+        }
+
+        .controls button:hover {
+            background-color: #841c1c; /* Darker shade on hover */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .button-container button {
+            margin-left: 10px;
+            background-color: #a42924; /* Button color */
+            color: white; /* Text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Padding for the button */
+            cursor: pointer; /* Pointer cursor */
+        }
+
+        .button-container button:hover {
+            background-color: #841c1c; /* Darker shade on hover */
+        }
+
+        .show-controls {
+            display: flex;
+        }
+
+        .arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+        }
+
+        .arrow.red {
+            border-bottom: 10px solid red;
+        }
+
+        .arrow.green {
+            border-bottom: 10px solid green;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="inicial.html" class="title" style="display: flex; align-items: center;">
+                <img src="logo.png" alt="Logo" style="width: 80px; height: 80px; margin-right: 8px;">
+                <span style="display: flex; align-items: center;">Poupança Uai</span>
+            </a>
+            <div class="profile" style="margin-right: 60px;">
+                <img src="https://i.pravatar.cc/60" alt="Foto de Perfil">
+                <div class="info">
+                    <div class="name">Lucas de Souza<span class="status-dot"></span></div>
+                    <span>lucasteste@gmail.com</span>
+                    <div class="search">
+                        <input type="text" placeholder="Search Activities, messages">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="chart-container">
+            <div class="leitura">
+                <h3>Leitura do Gráfico</h3>
+                <p id="leitura"></p>
+            </div>
+            <canvas id="gastosChart"></canvas>
+        </div>
+        <div class="button-container">
+            <button onclick="mostrarControles()">Adicionar Valor</button>
+        </div>
+        <div class="controls" id="controls">
+            <input type="date" id="data" />
+            <input type="number" id="valor" placeholder="Valor" />
+            <select id="tipo">
+                <option value="recebimento">Recebimento</option>
+                <option value="pagamento">Pagamento</option>
+            </select>
+            <button onclick="adicionarRegistro()">Adicionar</button>
+            <button onclick="removerRegistro()">Remover</button>
+            <button onclick="alterarRegistro()">Alterar</button>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('gastosChart').getContext('2d');
+        let dadosGastos = [];
+        let dadosRecebimentos = [];
+
+        const gastosChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: 31 }, (_, i) => i + 1),
+                datasets: [
+                    {
+                        label: 'Previsão de Gastos',
+                        data: dadosGastos,
+                        borderColor: 'red',
+                        fill: false,
+                    },
+                    {
+                        label: 'Previsão de Recebimentos',
+                        data: dadosRecebimentos,
+                        borderColor: 'green',
+                        fill: false,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Dia do Mês'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Valor'
+                        }
+                    }
+                }
+            }
+        });
+
+        function atualizarGrafico() {
+            gastosChart.data.datasets[0].data = dadosGastos;
+            gastosChart.data.datasets[1].data = dadosRecebimentos;
+            gastosChart.update();
+        }
+
+        function adicionarRegistro() {
+            const data = new Date(document.getElementById('data').value);
+            const dia = data.getDate();
+            const valor = parseFloat(document.getElementById('valor').value);
+            const tipo = document.getElementById('tipo').value;
+
+            if (tipo === 'pagamento') {
+                dadosGastos[dia - 1] = (dadosGastos[dia - 1] || 0) + valor;
+            } else if (tipo === 'recebimento') {
+                dadosRecebimentos[dia - 1] = (dadosRecebimentos[dia - 1] || 0) + valor;
+            }
+
+            atualizarGrafico();
+            mostrarControles();
+            esconderControles();
+        }
+
+        function mostrarControles() {
+            const controls = document.getElementById('controls');
+            controls.style.display = 'flex'; // Muda para flex para exibir os controles
+            controls.classList.add('show-controls');
+        }
+
+        function esconderControles() {
+            const controls = document.getElementById('controls');
+            setTimeout(() => {
+                controls.style.display = 'none'; // Oculta os controles após 2 segundos
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

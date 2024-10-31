@@ -36,7 +36,6 @@
       bottom: 20px;
       right: 20px;
       background-color: #a42924;
-
       color: white;
       border: none;
       border-radius: 50%;
@@ -49,19 +48,15 @@
       align-items: center;
       justify-content: center;
       transition: background-color 0.3s, transform 0.2s;
-
     }
 
     .assistant-button:hover {
       background-color: #9e2929;
-
       transform: scale(1.1);
-
     }
 
     .muted {
       background-color: #6c757d;
-
     }
   </style>
 </head>
@@ -204,18 +199,19 @@
 
     function toggleAssistant() {
       assistenteAtivo = !assistenteAtivo;
-      const button = document.getElementById("assistantButton");
-      button.classList.toggle("muted", !assistenteAtivo);
-
-
-      const statusMessage = assistenteAtivo ? "Assistente virtual ativado." : "Assistente virtual desativado.";
-      readText(statusMessage);
+      const assistantButton = document.getElementById('assistantButton');
+      if (assistenteAtivo) {
+        assistantButton.classList.remove('muted');
+        assistantButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+      } else {
+        assistantButton.classList.add('muted');
+        assistantButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      }
     }
-
   </script>
 
   <button id="assistantButton" class="assistant-button" onclick="toggleAssistant()">
-    <i class="fas fa-volume-up"></i>
+    <i class="fas fa-volume-mute"></i>
   </button>
 </body>
 

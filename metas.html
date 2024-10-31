@@ -9,16 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
+        /* Estilos personalizados */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        .navbar a {
-            text-decoration: none;
-        }
-
 
         body {
             font-family: Arial, sans-serif;
@@ -43,11 +39,8 @@
             font-size: 20px;
             font-weight: bold;
             margin-left: 60px;
-            font-family: Arial, Helvetica, sans-serif;
             color: white;
-            text-shadow: none;
             text-decoration: none;
-            /* Remover sublinhado do texto da navbar */
         }
 
         .navbar .profile {
@@ -55,50 +48,11 @@
             align-items: center;
         }
 
-
         .navbar .profile img {
             width: 60px;
             height: 60px;
             border-radius: 50%;
             margin-right: 15px;
-        }
-
-        .navbar .profile .info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .navbar .profile .info span {
-            font-size: 14px;
-            color: #e1e1e1;
-        }
-
-        .navbar .profile .info .name {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .navbar .profile .search {
-            margin-top: 10px;
-        }
-
-        .navbar .profile .search input {
-            padding: 5px 10px;
-            border-radius: 20px;
-            border: none;
-            outline: none;
-            width: 200px;
-            margin-right: 40px;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background-color: green;
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 5px;
         }
 
         .content {
@@ -139,24 +93,42 @@
             margin-top: 50px;
         }
 
-        .table {
-            background-color: white;
-            border-radius: 5px;
-        }
-
-        th {
-            background-color: #a42924;
-            color: white;
-        }
-
         .btn-success {
             background-color: #28a745;
             text-align: right;
             margin-left: 75px;
         }
 
-        .btn-danger {
-            background-color: #dc3545;
+        .assistant-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #a42924;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .assistant-button:hover {
+            background-color: #9e2929;
+            transform: scale(1.1);
+        }
+
+        .muted {
+            background-color: #6c757d;
+        }
+
+        .muted:hover {
+            background-color: #5a6268;
         }
     </style>
 </head>
@@ -167,16 +139,13 @@
         <div class="navbar">
             <a href="inicial.html" class="title" style="display: flex; align-items: center;">
                 <img src="logo.png" alt="Logo" style="width: 80px; height: 80px; margin-right: 8px;">
-                <span style="display: flex; align-items: center;">Poupança Uai</span>
+                <span>Poupança Uai</span>
             </a>
             <div class="profile" style="margin-right: 60px;">
                 <img src="https://i.pravatar.cc/60" alt="Foto de Perfil">
                 <div class="info">
                     <div class="name">Lucas de Souza<span class="status-dot"></span></div>
                     <span>lucasteste@gmail.com</span>
-                    <div class="search">
-                        <input type="text" placeholder="Search Activities, messages">
-                    </div>
                 </div>
             </div>
         </div>
@@ -184,18 +153,18 @@
 
     <div class="container mt-5 meta-container">
         <img src="https://img.freepik.com/vetores-premium/personagem-de-desenho-grafico-vetorial-de-ilustracao-de-apresentacao-de-negocios_516790-821.jpg?w=996"
-            alt="Meta" class="meta-image">
+            alt="Meta" class="meta-image" data-assistant-desc="Imagem ilustrativa sobre metas financeiras">
         <div class="meta-form">
             <h3>Minhas Metas</h3>
             <div class="mb-3">
                 <label for="metaName" class="form-label">Descrição</label>
-                <input type="text" class="form-control" id="metaName" placeholder="Digite a descrição da meta">
+                <input type="text" class="form-control" id="metaName" placeholder="Digite a descrição da meta" data-assistant-desc="Campo para inserir a descrição da meta">
             </div>
             <div class="mb-3">
                 <label for="metaValue" class="form-label">Valor</label>
-                <input type="number" class="form-control" id="metaValue" placeholder="Digite o valor da meta">
+                <input type="number" class="form-control" id="metaValue" placeholder="Digite o valor da meta" data-assistant-desc="Campo para inserir o valor da meta">
             </div>
-            <button class="btn btn-success" onclick="addMeta()">Adicionar</button>
+            <button class="btn btn-success" onclick="addMeta()" data-assistant-desc="Adicionar nova meta">Adicionar</button>
         </div>
     </div>
 
@@ -213,13 +182,45 @@
                     </tr>
                 </thead>
                 <tbody id="metaList">
-
                 </tbody>
             </table>
         </div>
     </div>
 
+    <button class="assistant-button" id="assistantButton">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+
     <script>
+        let isAssistantActive = false;
+
+        document.getElementById('assistantButton').addEventListener('click', function() {
+            isAssistantActive = !isAssistantActive;
+            this.innerHTML = `<i class="fas ${isAssistantActive ? 'fa-volume-up' : 'fa-volume-mute'}"></i>`;
+            
+            if (isAssistantActive) {
+                announce('Assistente Virtual ativado.');
+                setupAssistantDescriptions(); // Reconfigura as descrições quando ativado
+            } else {
+                announce('Assistente Virtual desativado.');
+            }
+        });
+
+        function announce(message) {
+            const utterance = new SpeechSynthesisUtterance(message);
+            speechSynthesis.speak(utterance);
+        }
+
+        function setupAssistantDescriptions() {
+            document.querySelectorAll('[data-assistant-desc]').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    if (isAssistantActive) {
+                        announce(element.getAttribute('data-assistant-desc'));
+                    }
+                });
+            });
+        }
+
         function addMeta() {
             const metaName = document.getElementById('metaName').value;
             const metaValue = parseFloat(document.getElementById('metaValue').value);
@@ -229,53 +230,46 @@
                 const newRow = document.createElement('tr');
                 const accumulated = 0;
 
-                newRow.innerHTML = `
+                newRow.innerHTML = ` 
                     <td>${metaName}</td>
                     <td>R$${metaValue.toFixed(2)}</td>
                     <td>R$${accumulated.toFixed(2)}</td>
                     <td>0%</td>
                     <td>
-                        <button class="btn btn-success" onclick="addValueToMeta(this)">Adicionar Valor</button>
-                        <button class="btn btn-danger" onclick="removeMeta(this)">Remover</button>
+                        <button class="btn btn-success" onclick="addValueToMeta(this)" data-assistant-desc="Adicionar valor à meta">Adicionar Valor</button>
+                        <button class="btn btn-danger" onclick="removeMeta(this)" data-assistant-desc="Remover meta">Remover</button>
                     </td>`;
                 metaList.appendChild(newRow);
 
                 document.getElementById('metaName').value = '';
                 document.getElementById('metaValue').value = '';
             } else {
-                alert('Por favor, preencha todos os campos corretamente.');
+                alert('Por favor, preencha corretamente todos os campos.');
             }
         }
 
         function addValueToMeta(button) {
-            const row = button.parentNode.parentNode;
-            const accumulatedCell = row.cells[2];
-            const percentageCell = row.cells[3];
-            const addedValue = parseFloat(prompt("Digite o valor a adicionar:"));
+            const row = button.closest('tr');
+            const metaValue = parseFloat(prompt("Digite o valor que deseja adicionar à meta:"));
+            const currentAccumulated = parseFloat(row.cells[2].innerText.replace('R$', '').replace(',', '.'));
+            const initialValue = parseFloat(row.cells[1].innerText.replace('R$', '').replace(',', '.'));
 
-            if (!isNaN(addedValue) && addedValue > 0) {
-                const currentValue = parseFloat(row.cells[1].innerText.replace('R$', '').replace('.', '').replace(',', '.'));
-                const currentAccumulated = parseFloat(accumulatedCell.innerText.replace('R$', '').replace('.', '').replace(',', '.'));
+            if (!isNaN(metaValue) && metaValue > 0) {
+                const newAccumulated = currentAccumulated + metaValue;
+                const percentage = (newAccumulated / initialValue) * 100;
 
-                const newAccumulated = currentAccumulated + addedValue;
-                accumulatedCell.innerText = `R$${newAccumulated.toFixed(2)}`;
-
-                const newPercentage = Math.floor((newAccumulated / currentValue) * 100);
-                percentageCell.innerText = `${newPercentage}%`;
+                row.cells[2].innerText = `R$${newAccumulated.toFixed(2)}`;
+                row.cells[3].innerText = `${percentage.toFixed(2)}%`;
             } else {
                 alert('Por favor, insira um valor válido.');
             }
         }
 
         function removeMeta(button) {
-            const row = button.parentNode.parentNode;
+            const row = button.closest('tr');
             row.parentNode.removeChild(row);
         }
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-rc0etj9YEO8Z0MykQ6PjS7d2lbTz4gYTO9MvXj/ye0C5PjLJ3gxd+ww4lUIqTkqH"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -85,7 +85,7 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: #a42924; /* Cor da navbar */
+      background-color: #a42924; 
       color: white;
       border: none;
       border-radius: 50%;
@@ -97,20 +97,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.3s, transform 0.2s; /* Efeito de transição */
+      transition: background-color 0.3s, transform 0.2s;
     }
 
     .assistant-button:hover {
-      background-color: #9e2929; /* Cor ao passar o mouse */
-      transform: scale(1.1); /* Aumenta levemente o botão */
+      background-color: #9e2929; 
+      transform: scale(1.1); 
     }
 
     .muted {
-      background-color: #6c757d; /* Cor para indicar que está mutado */
+      background-color: #6c757d; 
     }
   </style>
   <script>
-    let assistantActive = false; // Variável para controlar o estado do assistente
+    let assistantActive = false; 
 
     function login() {
       var email = document.getElementById('form1Example13').value;
@@ -123,37 +123,37 @@
       }
     }
 
-    // Função para ler o texto
+    
     function readText(text) {
       const utterance = new SpeechSynthesisUtterance(text);
       window.speechSynthesis.speak(utterance);
     }
 
-    // Adiciona eventos de mouseover para leitura dos elementos
+    
     document.addEventListener('DOMContentLoaded', () => {
-      // Ler campos de entrada
+      
       document.querySelectorAll('.readable').forEach(element => {
         element.addEventListener('mouseover', () => {
           if (assistantActive) {
-            const title = element.getAttribute('aria-label') || element.textContent; // Lê o aria-label ou o texto
+            const title = element.getAttribute('aria-label') || element.textContent;  
             readText(title);
           }
         });
       });
 
-      // Ler botões
+    
       document.querySelectorAll('.btn, .form-check-label').forEach(element => {
         element.addEventListener('mouseover', () => {
           if (assistantActive) {
-            const title = element.getAttribute('aria-label') || element.textContent; // Lê o aria-label ou o texto
+            const title = element.getAttribute('aria-label') || element.textContent;  
             readText(title);
           }
         });
       });
 
-      // Evento de clique no botão do assistente
+      
       document.getElementById('assistantButton').addEventListener('click', () => {
-        assistantActive = !assistantActive; // Alterna o estado do assistente
+        assistantActive = !assistantActive; 
         const button = document.getElementById('assistantButton');
         if (assistantActive) {
           button.classList.remove('muted');
