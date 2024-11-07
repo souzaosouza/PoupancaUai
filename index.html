@@ -85,7 +85,7 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: #a42924; 
+      background-color: #a42924;
       color: white;
       border: none;
       border-radius: 50%;
@@ -101,16 +101,16 @@
     }
 
     .assistant-button:hover {
-      background-color: #9e2929; 
-      transform: scale(1.1); 
+      background-color: #9e2929;
+      transform: scale(1.1);
     }
 
     .muted {
-      background-color: #6c757d; 
+      background-color: #6c757d;
     }
   </style>
   <script>
-    let assistantActive = false; 
+    let assistantActive = false;
 
     function login() {
       var email = document.getElementById('form1Example13').value;
@@ -123,37 +123,37 @@
       }
     }
 
-    
+
     function readText(text) {
       const utterance = new SpeechSynthesisUtterance(text);
       window.speechSynthesis.speak(utterance);
     }
 
-    
+
     document.addEventListener('DOMContentLoaded', () => {
-      
+
       document.querySelectorAll('.readable').forEach(element => {
         element.addEventListener('mouseover', () => {
           if (assistantActive) {
-            const title = element.getAttribute('aria-label') || element.textContent;  
+            const title = element.getAttribute('aria-label') || element.textContent;
             readText(title);
           }
         });
       });
 
-    
+
       document.querySelectorAll('.btn, .form-check-label').forEach(element => {
         element.addEventListener('mouseover', () => {
           if (assistantActive) {
-            const title = element.getAttribute('aria-label') || element.textContent;  
+            const title = element.getAttribute('aria-label') || element.textContent;
             readText(title);
           }
         });
       });
 
-      
+
       document.getElementById('assistantButton').addEventListener('click', () => {
-        assistantActive = !assistantActive; 
+        assistantActive = !assistantActive;
         const button = document.getElementById('assistantButton');
         if (assistantActive) {
           button.classList.remove('muted');
@@ -182,27 +182,33 @@
 
             <label class="form-label" for="form1Example13">Endereço de e-mail</label>
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="email" id="form1Example13" class="form-control form-control-lg readable" aria-label="Campo para digitar o endereço de e-mail" />
+              <input type="email" id="form1Example13" class="form-control form-control-lg readable"
+                aria-label="Campo para digitar o endereço de e-mail" />
             </div>
 
             <label class="form-label" for="form1Example23">Senha</label>
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="password" id="form1Example23" class="form-control form-control-lg readable" aria-label="Campo para digitar a senha" />
+              <input type="password" id="form1Example23" class="form-control form-control-lg readable"
+                aria-label="Campo para digitar a senha" />
             </div>
 
             <div class="d-flex justify-content-around align-items-center mb-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked aria-label="Lembrar-me" />
+                <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked
+                  aria-label="Lembrar-me" />
                 <label class="form-check-label" for="form1Example3">Lembrar-me</label>
               </div>
-              <a href="#!" style="font-size: 12px; margin-left: -20px;" class="readable" aria-label="Clique para recuperar a senha">Esqueci minha senha</a>
+              <a href="#!" style="font-size: 12px; margin-left: -20px;" class="readable"
+                aria-label="Clique para recuperar a senha">Esqueci minha senha</a>
             </div>
 
-            <button type="button" class="btn btn-primary btn-lg btn-block readable" onclick="login()" aria-label="Clique para entrar">Entrar</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block readable" onclick="login()"
+              aria-label="Clique para entrar">Entrar</button>
 
             <div class="account-text" style="margin-top: 15px; text-align: center;">
               <p style="display: inline;">Não possui uma conta?</p>
-              <a href="cadastro.html" style="display: inline; color: blue; text-decoration: underline;" class="readable" aria-label="Clique para se inscrever">Inscreva-se</a>
+              <a href="cadastro.html" style="display: inline; color: blue; text-decoration: underline;" class="readable"
+                aria-label="Clique para se inscrever">Inscreva-se</a>
             </div>
 
             <div class="divider d-flex align-items-center my-4">
@@ -242,5 +248,4 @@
     integrity="sha384-pYwskDr7ChyWyH/CpCKtFT8eS+0hH+W38gILK33Jw4PE1xDJU7zqWj4zdHfj1gqX"
     crossorigin="anonymous"></script>
 </body>
-
 </html>

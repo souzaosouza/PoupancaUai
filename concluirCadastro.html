@@ -104,7 +104,8 @@
                     </div>
 
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button type="button" id="concluirCadastro" class="btn btn-primary btn-lg">Concluir Cadastro</button>
+                      <button type="button" id="concluirCadastro" class="btn btn-primary btn-lg">Concluir
+                        Cadastro</button>
                     </div>
 
                   </form>
@@ -129,9 +130,9 @@
   </button>
 
   <script>
-    let assistenteAtivo = false; 
+    let assistenteAtivo = false;
 
-   
+
     function formatCurrency(input) {
       let value = input.value.replace(/\D/g, '');
       if (value) {
@@ -142,7 +143,7 @@
       }
     }
 
-    
+
     document.querySelectorAll('.readable').forEach(element => {
       element.addEventListener('mouseover', () => {
         const label = element.labels ? element.labels[0].innerText : "";
@@ -153,15 +154,15 @@
     });
 
     function speak(text) {
-      if (!assistenteAtivo) return; 
+      if (!assistenteAtivo) return;
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'pt-BR';
       window.speechSynthesis.speak(utterance);
     }
 
-    
+
     document.getElementById('assistantButton').addEventListener('click', () => {
-      assistenteAtivo = !assistenteAtivo; 
+      assistenteAtivo = !assistenteAtivo;
       const button = document.getElementById('assistantButton');
       button.classList.toggle('muted', !assistenteAtivo);
 
@@ -175,10 +176,10 @@
       });
     });
 
-   
+
     document.getElementById('concluirCadastro').addEventListener('click', () => {
       speak("Cadastro concluído! Redirecionando para a página inicial.");
-     
+
       setTimeout(() => {
         window.location.href = 'inicial.html';
       }, 2000);

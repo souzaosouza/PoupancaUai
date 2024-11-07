@@ -46,7 +46,7 @@
             color: white;
             text-shadow: none;
             text-decoration: none;
-            /* Remover sublinhado do texto da navbar */
+
         }
 
         .navbar .profile {
@@ -262,7 +262,7 @@
             padding: 10px;
             margin-top: 8px;
             margin-bottom: 10px;
-         
+
         }
 
         .add-modal-button {
@@ -317,6 +317,129 @@
         .muted {
             background-color: #6c757d;
 
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+
+
+        @media (max-width: 768px) {
+
+
+            .navbar {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+            }
+
+            .navbar .title {
+                font-size: 18px;
+                margin: 0;
+                text-align: center;
+            }
+
+            .navbar .profile {
+                flex-direction: column;
+                align-items: center;
+                margin: 0;
+            }
+
+            .navbar .profile img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .navbar .profile .info {
+                align-items: center;
+                text-align: center;
+            }
+
+            .navbar .profile .info .name {
+                font-size: 16px;
+            }
+
+            
+            table,
+            th,
+            td {
+                font-size: 12px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;                        
+            }
+
+            
+            .add-button {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+           
+            .modal-content {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .modal-content h3 {
+                font-size: 20px;
+            }
+
+            .modal-content input[type="date"],
+            .modal-content input[type="text"] {
+                width: 100%;
+            }
+
+            .add-modal-button {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            
+            .assistant-button {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar .title {
+                font-size: 16px;
+            }
+
+            .navbar .profile img {
+                width: 40px;
+                height: 40px;
+            }
+
+
+            .container {
+                padding: 10px;
+            }
+
+            h1.text-center {
+                font-size: 18px;
+            }
+
+            .add-button {
+                font-size: 12px;
+            }
+
+            .modal-content h3 {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -398,9 +521,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-        
-        
-        let assistantActive = false; 
+
+
+        let assistantActive = false;
 
         function login() {
             var email = document.getElementById('form1Example13').value;
@@ -418,7 +541,7 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        
+
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.readable').forEach(element => {
                 element.addEventListener('mouseover', () => {
@@ -429,9 +552,9 @@
                 });
             });
 
-            
+
             document.getElementById('assistantButton').addEventListener('click', () => {
-                assistantActive = !assistantActive; 
+                assistantActive = !assistantActive;
                 const button = document.getElementById('assistantButton');
                 if (assistantActive) {
                     button.classList.remove('muted');
@@ -573,31 +696,31 @@
             value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
             input.value = value;
         }
-        let isMuted = false; 
-        let assistantVoice; 
-        const utterance = new SpeechSynthesisUtterance(); 
+        let isMuted = false;
+        let assistantVoice;
+        const utterance = new SpeechSynthesisUtterance();
 
-        
+
         function initializeAssistant() {
             const voices = speechSynthesis.getVoices();
-            assistantVoice = voices.find(voice => voice.name.includes('Google US English')) || voices[0]; 
+            assistantVoice = voices.find(voice => voice.name.includes('Google US English')) || voices[0];
             utterance.voice = assistantVoice;
         }
 
-        
+
         function toggleAssistant() {
             const assistantButton = document.getElementById('assistantButton');
-            isMuted = !isMuted; 
+            isMuted = !isMuted;
             assistantButton.classList.toggle('muted');
 
             if (!isMuted) {
-                speak('Assistente ativado. Posicione o mouse sobre os elementos para obter ajuda.'); 
+                speak('Assistente ativado. Posicione o mouse sobre os elementos para obter ajuda.');
             } else {
-                speak('Assistente desativado.'); 
+                speak('Assistente desativado.');
             }
         }
 
-       
+
         function speak(message) {
             if (!isMuted) {
                 utterance.text = message;
@@ -605,23 +728,23 @@
             }
         }
 
-       
+
         function describeElement(event) {
             if (!isMuted) {
                 const element = event.target;
-                const description = element.getAttribute('data-description'); 
+                const description = element.getAttribute('data-description');
                 if (description) {
-                    speak(description); 
+                    speak(description);
                 }
             }
         }
 
-        
+
         document.querySelectorAll('*').forEach(element => {
             element.addEventListener('mouseover', describeElement);
         });
 
-        
+
         window.addEventListener('load', initializeAssistant);
 
         let transactionType = 'Entrada';
@@ -698,11 +821,11 @@
                 closeModal();
             }
         }
-        
+
     </script>
     <button id="assistantButton" class="assistant-button" aria-label="Ativar assistente virtual">
         <i class="fas fa-volume-up"></i>
-      </button>
+    </button>
 
 </body>
 

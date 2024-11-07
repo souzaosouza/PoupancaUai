@@ -1,29 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lançamentos</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Registrar Lançamentos</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .navbar a {
-            text-decoration: none;
-        }
-
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
         }
-
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -90,154 +76,61 @@
             margin-right: 40px;
         }
 
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background-color: green;
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 5px;
-        }
-
-        .card {
-            background-color: #f0f0f0;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            width: 450px;
-            height: 200px;
-            margin-left: 60px;
-            margin-top: 20px;
-            align-items: center;
-            display: flex;
-            flex-direction: column; 
-            justify-content: center; 
-            text-align: center;
-
-        }
-
-        main {
-            margin-top: 120px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .grid {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .transaction-container {
-            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.479);
-            padding: 20px;
-            margin-top: 70px; 
-            width: 90%; 
-            height: 350px;
-             
-            
-
         }
-
-        .add-transaction {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
+        h1 {
+            text-align: center;
+            color: #333;
         }
-
-        .add-transaction input,
-        .add-transaction select {
-            margin-bottom: 10px;
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
-
-        .button-group {
-            display: flex;
-            justify-content: flex-end; 
-        }
-
-        .button-group button {
-            margin-left: 10px;
-            padding: 10px 15px;
+        .form-group button {
+            background-color: #a42924;
+            color: white;
+            padding: 12px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            margin-top: 10px;
+            width: 100%;
         }
-
-        .add-button {
-            background-color: #4CAF50;
-            color: white;
+        .form-group button:hover {
+            background-color: #45a049;
         }
-
-        .edit-button {
-            background-color: #FFC107;
-            color: white;
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
         }
-
-        .remove-button {
-            background-color: #F44336;
-            color: white;
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
         }
-
-        .toggle-button {
-            margin: 20px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .table th {
+            background-color: #f2f2f2;
         }
-
-        .toggle-on {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .toggle-off {
-            background-color: #F44336;
-            color: white;
-        }
-        .assistant-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #a42924; 
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s, transform 0.2s; 
-        }
-      
-        .assistant-button:hover {
-            background-color: #9e2929; 
-            transform: scale(1.1); 
-        }
-      
-        .muted {
-            background-color: #6c757d;
-        }
-        h6 {
-            font-size: 30px;
-            margin-top: 50px;
-        }
-        add-button 
     </style>
 </head>
-
 <body>
     <header>
         <div class="navbar">
@@ -257,168 +150,116 @@
             </div>
         </div>
     </header>
-
-    <main>
+    <div class="container">
+        <h1>Registrar Lançamento</h1>
         
-
-        <section class="grid">
-            <div class="card" onmouseover="assistenteAtivo && speak('Recebido: R$ ' + document.getElementById('recebido-valor').textContent)">
-                <h6 style="margin-bottom: auto;">Recebido</h6>
-                <div style="font-size: 24px; font-weight: bold;" id="recebido-valor">R$ 0,00</div>
-            </div>
-            <div class="card" onmouseover="assistenteAtivo && speak('A Pagar: R$ ' + document.getElementById('apagar-valor').textContent)">
-                <h6 style="margin-bottom: auto;">A Pagar</h6>
-                <div style="font-size: 24px; font-weight: bold;" id="apagar-valor">R$ 0,00</div>
-            </div>
-            <div class="card" onmouseover="assistenteAtivo && speak('Rendendo: R$ ' + document.getElementById('rendendo-valor').textContent)">
-                <h6 style="margin-bottom: auto;">Rendendo</h6>
-                <div style="font-size: 24px; font-weight: bold;" id="rendendo-valor">R$ 0,00</div>
-            </div>
-        </section>
-
-        <div class="transaction-container">
-            <h5>Registrar Transações</h5>
-            <div class="add-transaction">
-                <select id="transaction-type" onmouseover="assistenteAtivo && speak('Selecione o tipo de transação')">
-                    <option value="recebido">Recebido</option>
-                    <option value="apagar">A Pagar</option>
-                    <option value="rendendo">Rendendo</option>
-                </select>
-                <input type="number" id="transaction-amount" placeholder="Valor" onmouseover="assistenteAtivo && speak('Digite o valor da transação')" />
-                <input type="text" id="transaction-description" placeholder="Descrição" onmouseover="assistenteAtivo && speak('Digite a descrição da transação')" />
-                <input type="date" id="transaction-date" onmouseover="assistenteAtivo && speak('Selecione a data da transação')" />
-
-                <div class="button-group">
-                    <button class="add-button" onclick="addTransaction()">Adicionar Transação</button>
-                    <button class="edit-button" onclick="editTransaction()">Editar Transação</button>
-                    <button class="remove-button" onclick="removeTransaction()">Remover Transação</button>
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="tipo">Tipo de Lançamento</label>
+            <select id="tipo">
+                <option value="receita">Receita</option>
+                <option value="despesa">Despesa</option>
+                <option value="investimento">Investimento</option>
+            </select>
         </div>
-    </main>
+        
+        <div class="form-group">
+            <label for="descricao">Descrição</label>
+            <input type="text" id="descricao" placeholder="Ex: Compra no supermercado">
+        </div>
+        
+        <div class="form-group">
+            <label for="valor">Valor (R$)</label>
+            <input type="number" id="valor" placeholder="Ex: 150.00">
+        </div>
+        
+        <div class="form-group">
+            <label for="formaPagamento">Forma de Pagamento</label>
+            <select id="formaPagamento">
+                <option value="cartao">Cartão de Crédito</option>
+                <option value="dinheiro">Dinheiro</option>
+                <option value="transferencia">Transferência</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <button onclick="registrarLancamento()">Salvar Lançamento</button>
+        </div>
+
+        <h2>Lançamentos Registrados</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Valor (R$)</th>
+                    <th>Forma de Pagamento</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-lancamentos">
+                
+            </tbody>
+        </table>
+    </div>
 
     <script>
-        let assistenteAtivo = false; 
-    
-        function speak(text) {
-            if (assistenteAtivo) {
-                const speech = new SpeechSynthesisUtterance(text);
-                speech.lang = 'pt-BR'; 
-                speech.volume = 1; 
-                speech.rate = 1; 
-                speech.pitch = 1; 
-                window.speechSynthesis.speak(speech);
-            }
-        }
-    
         
-        function startAssistant() {
-            const functionalities = [
-                "Esta é a página de lançamentos. Aqui você pode acompanhar seus lançamentos semanais, prever seus gastos fixos e adicionar novos gastos.",
-                "No card de 'Recebido', você verá o total de valores que já recebeu.",
-                "No card de 'A Pagar', você pode visualizar todos os gastos que ainda precisa pagar.",
-                "No card de 'Rendendo', você pode acompanhar quanto está rendendo suas economias.",
-                "Clique no botão 'Adicionar' para adicionar novos lançamentos.",
-                "Utilize o menu de navegação para acessar outras partes do site, como 'Minhas Metas' e 'Configurações'."
-            ];
-    
-            functionalities.forEach(func => {
-                speak(func); 
-            });
-        }
-    
-       
-        function loadTransactions() {
-            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-            let recebidos = 0, aPagar = 0, rendendo = 0;
-    
-            transactions.forEach(transaction => {
-                switch (transaction.type) {
-                    case 'recebido':
-                        recebidos += parseFloat(transaction.amount);
-                        break;
-                    case 'apagar':
-                        aPagar += parseFloat(transaction.amount);
-                        break;
-                    case 'rendendo':
-                        rendendo += parseFloat(transaction.amount);
-                        break;
-                }
-            });
-    
-            document.getElementById('recebido-valor').textContent = `R$ ${recebidos.toFixed(2)}`;
-            document.getElementById('apagar-valor').textContent = `R$ ${aPagar.toFixed(2)}`;
-            document.getElementById('rendendo-valor').textContent = `R$ ${rendendo.toFixed(2)}`;
-        }
-    
-      
-        function addTransaction() {
-            const type = document.getElementById('transaction-type').value;
-            const amount = document.getElementById('transaction-amount').value;
-            const description = document.getElementById('transaction-description').value;
-            const date = document.getElementById('transaction-date').value;
-    
-            if (amount && description && date) {
-                const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-                transactions.push({ type, amount, description, date });
-                localStorage.setItem('transactions', JSON.stringify(transactions));
-                loadTransactions();
-                alert("Transação adicionada com sucesso!");
-                
-                document.getElementById('transaction-amount').value = '';
-                document.getElementById('transaction-description').value = '';
-                document.getElementById('transaction-date').value = '';
-            } else {
-                alert("Por favor, preencha todos os campos!");
+        function registrarLancamento() {
+            const tipo = document.getElementById('tipo').value;
+            const descricao = document.getElementById('descricao').value;
+            const valor = parseFloat(document.getElementById('valor').value);
+            const formaPagamento = document.getElementById('formaPagamento').value;
+            
+            if (descricao === "" || isNaN(valor) || valor <= 0) {
+                alert("Por favor, preencha todos os campos corretamente.");
+                return;
             }
+            
+            const data = new Date().toLocaleDateString();
+
+            
+            const tabela = document.getElementById('tabela-lancamentos');
+            const row = tabela.insertRow();
+
+            row.insertCell(0).innerText = data;
+            row.insertCell(1).innerText = tipo.charAt(0).toUpperCase() + tipo.slice(1);
+            row.insertCell(2).innerText = descricao;
+            row.insertCell(3).innerText = `R$ ${valor.toFixed(2)}`;
+            row.insertCell(4).innerText = formaPagamento.charAt(0).toUpperCase() + formaPagamento.slice(1);
+            const acoesCell = row.insertCell(5);
+            acoesCell.innerHTML = `
+                <button onclick="editarLancamento(this)">Editar</button>
+                <button onclick="excluirLancamento(this)">Excluir</button>
+            `;
+            
+            
+            document.getElementById('descricao').value = '';
+            document.getElementById('valor').value = '';
         }
-    
+
         
-        document.addEventListener('DOMContentLoaded', () => {
-            startAssistant();
-            loadTransactions();
-    
-          
-            document.querySelectorAll('.readable').forEach(element => {
-                element.addEventListener('mouseover', () => {
-                    if (assistenteAtivo) {
-                        const title = element.getAttribute('aria-label') || element.textContent;
-                        speak(title);
-                    }
-                });
-            });
-    
-          
-            document.getElementById('assistantButton').addEventListener('click', () => {
-                assistenteAtivo = !assistenteAtivo; 
-                const button = document.getElementById('assistantButton');
-                if (assistenteAtivo) {
-                    button.classList.remove('muted');
-                    speak("Você ativou o assistente virtual.");
-                } else {
-                    button.classList.add('muted');
-                    speak("Você desativou o assistente virtual.");
-                }
-            });
-        });
-    
-        function login() {
-            var email = document.getElementById('form1Example13').value;
-            var password = document.getElementById('form1Example23').value;
-    
-            if (email && password) {
-                window.location.href = 'inicial.html';
-            } else {
-                alert('Por favor, preencha todos os campos.');
-            }
+        function editarLancamento(btn) {
+            const row = btn.parentElement.parentElement;
+            const descricao = row.cells[2].innerText;
+            const valor = row.cells[3].innerText.replace('R$', '').trim();
+            const tipo = row.cells[1].innerText.toLowerCase();
+            const formaPagamento = row.cells[4].innerText.toLowerCase();
+
+            document.getElementById('descricao').value = descricao;
+            document.getElementById('valor').value = valor;
+            document.getElementById('tipo').value = tipo;
+            document.getElementById('formaPagamento').value = formaPagamento;
+            
+            row.remove();
+        }
+
+        
+        function excluirLancamento(btn) {
+            const row = btn.parentElement.parentElement;
+            row.remove();
         }
     </script>
     
-    
-   
-    <button id="assistantButton" class="assistant-button" aria-label="Ativar assistente virtual">
-        <i class="fas fa-volume-up"></i>
-      </button>
 </body>
-
 </html>

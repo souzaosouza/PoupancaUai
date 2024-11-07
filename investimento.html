@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Investimentos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f8;
+            padding-top: 60px;
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #a42924;
+            padding: 5px;
+            width: 100%;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100px;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 60px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            text-shadow: none;
+            text-decoration: none;
+        }
+
+        .container {
+            padding: 40px;
+            margin-top: 13px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 30px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #a42924;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .form-group button {
+            background-color: #a42924;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-size: 18px;
+        }
+
+        .form-group button:hover {
+            background-color: #822020;
+        }
+
+        .result,
+        .investment-ideas,
+        .investment-explanation {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        .investment-ideas ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .investment-ideas li {
+            margin: 10px 0;
+        }
+
+        .investment-explanation {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="navbar">
+            <a href="inicial.html" class="title" style="display: flex; align-items: center;">
+                <img src="logo.png" alt="Logo" style="width: 80px; height: 80px; margin-right: 8px;">
+                <span style="display: flex; align-items: center;">Poupança Uai</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h3>Simulador de Investimentos</h3>
+            <div class="form-group">
+                <label for="salary">Salário Mensal (R$)</label>
+                <input type="number" id="salary" placeholder="Digite seu salário mensal">
+            </div>
+            <div class="form-group">
+                <label for="desired-income">Renda Mensal Desejada (R$)</label>
+                <input type="number" id="desired-income" placeholder="Quanto você gostaria de receber por mês">
+            </div>
+            <div class="form-group">
+                <label for="investment-period">Tempo para Resgatar (anos)</label>
+                <select id="investment-period">
+                    <option value="1">1 Ano</option>
+                    <option value="2">2 Anos</option>
+                    <option value="3">3 Anos</option>
+                    <option value="5">5 Anos</option>
+                    <option value="10">10 Anos</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button onclick="generateInvestmentIdeas()">Ver Ideias de Investimento</button>
+            </div>
+            <div class="result" id="result"></div>
+            <div class="investment-ideas" id="investment-ideas">
+
+            </div>
+            <div class="investment-explanation" id="investment-explanation">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateInvestmentIdeas() {
+            const salary = parseFloat(document.getElementById('salary').value);
+            const desiredIncome = parseFloat(document.getElementById('desired-income').value);
+            const investmentPeriod = parseInt(document.getElementById('investment-period').value);
+            const resultDiv = document.getElementById('result');
+            const ideasDiv = document.getElementById('investment-ideas');
+            const explanationDiv = document.getElementById('investment-explanation');
+
+            if (isNaN(salary) || isNaN(desiredIncome) || salary <= 0 || desiredIncome <= 0 || investmentPeriod <= 0) {
+                resultDiv.textContent = 'Por favor, insira valores válidos para o salário, a renda desejada e o tempo de investimento.';
+                ideasDiv.innerHTML = '';
+                explanationDiv.innerHTML = '';
+                return;
+            }
+
+            const monthlyInvestment = calculateMonthlyInvestment(desiredIncome, investmentPeriod);
+
+            resultDiv.innerHTML = `Para atingir uma renda mensal de R$ ${desiredIncome}, você precisaria investir aproximadamente R$ ${monthlyInvestment.toFixed(2)} por mês durante ${investmentPeriod} ano(s).`;
+
+            const investmentIdeas = getInvestmentIdeas(monthlyInvestment);
+
+            ideasDiv.innerHTML = '<h4>Ideias de Investimento</h4>';
+            const ul = document.createElement('ul');
+            investmentIdeas.forEach(idea => {
+                const li = document.createElement('li');
+                li.textContent = idea;
+                ul.appendChild(li);
+            });
+            ideasDiv.appendChild(ul);
+
+            explanationDiv.innerHTML = `
+                <h4>Como Funciona o Processo de Investimento?</h4>
+                <p>Investir seu dinheiro significa colocá-lo em produtos financeiros que geram retorno ao longo do tempo, com o objetivo de aumentar seu capital. 
+                Com os investimentos sugeridos, você pode começar a construir seu portfólio de acordo com seu objetivo de longo prazo.</p>
+                <ul>
+                    <li><strong>Poupança:</strong> Ideal para quem busca segurança, mas com rendimento baixo.</li>
+                    <li><strong>CDB:</strong> Uma opção mais segura com rentabilidade maior que a poupança.</li>
+                    <li><strong>Ações:</strong> Embora mais arriscadas, podem trazer retornos mais altos no longo prazo.</li>
+                    <li><strong>Fundos Imobiliários (FIIs):</strong> Oferecem uma renda passiva, ideal para quem busca estabilidade com rendimentos mensais.</li>
+                </ul>
+                <p>Com a opção de resgatar após o período escolhido, você poderá ter maior flexibilidade para alcançar sua meta de renda mensal.</p>
+            `;
+        }
+
+        function calculateMonthlyInvestment(desiredIncome, investmentPeriod) {
+            const annualReturnRate = 0.06;
+            const monthsToAchieveGoal = investmentPeriod * 12;
+            const monthlyRate = annualReturnRate / 12;
+
+
+            const futureValue = desiredIncome * monthsToAchieveGoal;
+            const monthlyInvestment = futureValue * monthlyRate / (Math.pow(1 + monthlyRate, monthsToAchieveGoal) - 1);
+            return monthlyInvestment;
+        }
+
+        function getInvestmentIdeas(monthlyInvestment) {
+            let ideas = [];
+
+
+            if (monthlyInvestment <= 100) {
+                ideas.push("Investir em uma Poupança ou CDB com rendimento de 100% do CDI (baixo risco, ideal para quem busca segurança).");
+                ideas.push("Considerar investir em Tesouro Direto (Selic), com segurança e retorno razoável.");
+            }
+
+            else if (monthlyInvestment <= 500) {
+                ideas.push("Investir em Tesouro Direto (pré-fixado) ou fundos de renda fixa (risco médio, com rentabilidade de 7-10% ao ano).");
+                ideas.push("Diversificar em CDBs de maior rentabilidade, que oferecem um retorno superior à Poupança.");
+            }
+
+            else if (monthlyInvestment <= 1000) {
+                ideas.push("Investir em ações de empresas consolidadas com bom histórico de retorno (risco mais alto, mas com potencial de ganho de 12-20% ao ano).");
+                ideas.push("Considerar investir em Fundos Imobiliários (FIIs) para gerar uma renda passiva mensal.");
+            }
+
+            else {
+                ideas.push("Investir em um portfólio diversificado com uma mistura de CDBs de alta rentabilidade e ações para potencializar o retorno (aproximadamente 10-15% ao ano).");
+                ideas.push("Considerar um portfólio com renda fixa (Tesouro Direto, CDBs) e renda variável (ações, FIIs) para alcançar um equilíbrio entre segurança e crescimento.");
+            }
+
+            return ideas;
+        }
+    </script>
+</body>
+
+</html>

@@ -158,13 +158,16 @@
             <h3>Minhas Metas</h3>
             <div class="mb-3">
                 <label for="metaName" class="form-label">Descrição</label>
-                <input type="text" class="form-control" id="metaName" placeholder="Digite a descrição da meta" data-assistant-desc="Campo para inserir a descrição da meta">
+                <input type="text" class="form-control" id="metaName" placeholder="Digite a descrição da meta"
+                    data-assistant-desc="Campo para inserir a descrição da meta">
             </div>
             <div class="mb-3">
                 <label for="metaValue" class="form-label">Valor</label>
-                <input type="number" class="form-control" id="metaValue" placeholder="Digite o valor da meta" data-assistant-desc="Campo para inserir o valor da meta">
+                <input type="number" class="form-control" id="metaValue" placeholder="Digite o valor da meta"
+                    data-assistant-desc="Campo para inserir o valor da meta">
             </div>
-            <button class="btn btn-success" onclick="addMeta()" data-assistant-desc="Adicionar nova meta">Adicionar</button>
+            <button class="btn btn-success" onclick="addMeta()"
+                data-assistant-desc="Adicionar nova meta">Adicionar</button>
         </div>
     </div>
 
@@ -194,10 +197,10 @@
     <script>
         let isAssistantActive = false;
 
-        document.getElementById('assistantButton').addEventListener('click', function() {
+        document.getElementById('assistantButton').addEventListener('click', function () {
             isAssistantActive = !isAssistantActive;
             this.innerHTML = `<i class="fas ${isAssistantActive ? 'fa-volume-up' : 'fa-volume-mute'}"></i>`;
-            
+
             if (isAssistantActive) {
                 announce('Assistente Virtual ativado.');
                 setupAssistantDescriptions(); // Reconfigura as descrições quando ativado

@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre nós</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        .navbar a {
-            text-decoration: none;
+            font-family: "Poppins", sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            width: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 120px;
         }
 
         .navbar {
@@ -90,92 +91,238 @@
             width: 200px;
             margin-right: 40px;
         }
+
+        .container {
+            width: 100%;
+            max-width: 1700px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 150px;
+            height: 500px;
+        }
+
+        .container .content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .container .content .left-side {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .left-side::before {
+            content: '';
+            position: absolute;
+            height: 70%;
+            width: 2px;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #afafb6;
+        }
+
+        .left-side .details {
+            margin: 14px;
+            text-align: center;
+        }
+
+        .left-side .details i {
+            font-size: 30px;
+            color: #a42924;
+            margin-bottom: 10px;
+        }
+
+        .left-side .details .topic {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .left-side .details .text-one,
+        .left-side .details .text-two {
+            font-size: 14px;
+            color: #afafb6;
+        }
+
+        .container .content .right-side {
+            width: 65%;
+            margin-left: 20px;
+        }
+
+        .right-side .topic-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #a42924;
+        }
+
+        .right-side .input-box {
+            height: 50px;
+            width: 100%;
+            margin: 12px 0;
+        }
+
+        .right-side .input-box input,
+        .right-side .input-box textarea {
+            height: 100%;
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: #F0F1F8;
+            border-radius: 6px;
+            padding: 0 15px;
+            resize: none;
+        }
+
+        .right-side .message-box {
+            min-height: 110px;
+        }
+
+        .right-side .input-box textarea {
+            padding-top: 6px;
+        }
+
+        .right-side .button {
+            display: inline-block;
+            margin-top: 12px;
+        }
+
+        .right-side .button input[type="button"] {
+            color: #fff;
+            font-size: 18px;
+            outline: none;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            background: #a42924;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button input[type="button"]:hover {
+            background: #a42924;
+        }
+
+        @media (max-width: 950px) {
+            .container {
+                width: 90%;
+                padding: 30px 40px 40px 35px;
+            }
+
+            .container .content .right-side {
+                width: 75%;
+                margin-left: 55px;
+            }
+        }
+
+        @media (max-width: 820px) {
+            .container {
+                margin: 40px 0;
+                height: 100%;
+            }
+
+            .container .content {
+                flex-direction: column-reverse;
+            }
+
+            .container .content .left-side {
+                width: 100%;
+                flex-direction: row;
+                margin-top: 40px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .container .content .left-side::before {
+                display: none;
+            }
+
+            .container .content .right-side {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 
 <body>
+
     <header>
-        <header>
-            <div class="navbar">
-                <a href="inicial.html" class="title" style="display: flex; align-items: center;">
-                    <img src="logo.png" alt="Logo" style="width: 80px; height: 80px; margin-right: 8px;">
-                    <span style="display: flex; align-items: center;">Poupança Uai</span>
-                </a>
-                <div class="profile" style="margin-right: 60px;">
-                    <img src="https://i.pravatar.cc/60" alt="Foto de Perfil">
-                    <div class="info">
-                        <div class="name">Lucas de Souza<span class="status-dot"></span></div>
-                        <span>lucasteste@gmail.com</span>
-                        <div class="search">
-                            <input type="text" placeholder="Search Activities, messages">
-                        </div>
+        <div class="navbar">
+            <a href="inicial.html" class="title" style="display: flex; align-items: center;">
+                <img src="logo.png" alt="Logo" style="width: 80px; height: 80px; margin-right: 8px;">
+                <span style="display: flex; align-items: center;">Poupança Uai</span>
+            </a>
+            <div class="profile" style="margin-right: 60px;">
+                <img src="https://i.pravatar.cc/60" alt="Foto de Perfil">
+                <div class="info">
+                    <div class="name">Lucas de Souza<span class="status-dot"></span></div>
+                    <span>lucasteste@gmail.com</span>
+                    <div class="search">
+                        <input type="text" placeholder="Search Activities, messages">
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
     </header>
-    <main>
-        <section class="py-3 py-md-5">
-            <div class="container">
-                <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
-                    <div class="col-12 col-lg-6 col-xl-5">
-                        <img class="img-fluid rounded" loading="lazy" src="./assets/img/about-img-1.jpg" alt="About 1">
-                    </div>
-                    <div class="col-12 col-lg-6 col-xl-7">
-                        <div class="row justify-content-xl-center">
-                            <div class="col-12 col-xl-11">
-                                <h2 class="mb-3">Who Are We?</h2>
-                                <p class="lead fs-4 text-secondary mb-3">We help people to build incredible brands and
-                                    superior products. Our perspective is to furnish outstanding captivating services.
-                                </p>
-                                <p class="mb-5">We are a fast-growing company, but we have never lost sight of our core
-                                    values. We believe in collaboration, innovation, and customer satisfaction. We are
-                                    always looking for new ways to improve our products and services.</p>
-                                <div class="row gy-4 gy-md-0 gx-xxl-5X">
-                                    <div class="col-12 col-md-6">
-                                        <div class="d-flex">
-                                            <div class="me-4 text-primary">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                    fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
-                                                </svg>
-                                            </div>
-                                            <div>
-                                                <h2 class="h4 mb-3">Versatile Brand</h2>
-                                                <p class="text-secondary mb-0">We are crafting a digital method that
-                                                    subsists life across all mediums.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="d-flex">
-                                            <div class="me-4 text-primary">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                    fill="currentColor" class="bi bi-fire" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z" />
-                                                </svg>
-                                            </div>
-                                            <div>
-                                                <h2 class="h4 mb-3">Digital Agency</h2>
-                                                <p class="text-secondary mb-0">We believe in innovation by merging
-                                                    primary with elaborate ideas.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="content">
+
+            <div class="left-side">
+                <div class="address details">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="topic">Endereço</div>
+                    <div class="text-one">R. dos Aimorés, 1451</div>
+                    <div class="text-two">Lourdes, Belo Horizonte</div>
+                </div>
+                <div class="phone details">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="topic">Phone</div>
+                    <div class="text-one">31-987654321</div>
+                    <div class="text-two">4002-8922</div>
+                </div>
+                <div class="email details">
+                    <i class="fas fa-envelope"></i>
+                    <div class="topic">Email</div>
+                    <div class="text-one">contato@poupancauai.com</div>
+                    <div class="text-two">informacoes@poupancauai.com</div>
                 </div>
             </div>
-        </section>
-    </main>
-    <footer>
 
-    </footer>
 
+            <div class="right-side">
+                <div class="topic-text">Nos envie uma mensagem</div>
+                <p>Se você tiver algum trabalho meu ou algum tipo de dúvida relacionada ao meu tutorial, pode me enviar
+                    uma mensagem daqui. É um prazer ajudá-lo.</p>
+                <form action="#">
+                    <div class="input-box">
+                        <input type="text" placeholder="Digite o seu nome">
+                    </div>
+                    <div class="input-box">
+                        <input type="email" placeholder="Digite o seu e-mail">
+                    </div>
+                    <div class="input-box">
+                        <input type="text" placeholder="Digite o assunto">
+                    </div>
+                    <div class="input-box message-box">
+                        <textarea placeholder="Digite a sua mensagem"></textarea>
+                    </div>
+                    <div class="button">
+                        <input type="button" value="Envie agora">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

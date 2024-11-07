@@ -226,12 +226,12 @@
             }
         }
 
-        /* Estilo do botão do assistente */
+
         .assistant-button {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #a42924; /* Cor da navbar */
+            background-color: #a42924;
             color: white;
             border: none;
             border-radius: 50%;
@@ -246,7 +246,7 @@
         }
 
         .muted {
-            background-color: #6c757d; /* Cor para indicar que está mutado */
+            background-color: #6c757d;
         }
     </style>
 </head>
@@ -272,7 +272,7 @@
     </header>
     <main>
         <div class="container">
-            <!-- Conteúdo da página -->
+
             <div class="header">
                 <h2>Caixinhas</h2>
                 <i class="fas fa-cog gear-icon"></i>
@@ -315,7 +315,7 @@
         </div>
     </main>
 
-    <!-- Botão do assistente virtual -->
+
     <button id="assistantButton" class="assistant-button" aria-label="Ativar assistente virtual">
         <i class="fas fa-volume-up"></i>
     </button>
@@ -342,7 +342,7 @@
             window.speechSynthesis.speak(speech);
         }
 
-        // Adicionar evento de mouse sobre elementos para feedback
+
         document.querySelectorAll('.card, .tab-button, .filter-button').forEach(element => {
             element.addEventListener('mouseover', () => {
                 if (assistantActive) {

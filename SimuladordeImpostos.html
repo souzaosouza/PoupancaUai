@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Impostos e Dedução</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f8;
+            color: #333;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #a42924;
+            padding: 5px;
+            width: 100%;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100px;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 60px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            text-shadow: none;
+            text-decoration: none;
+        }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .navbar .profile .info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .navbar .profile .info span {
+            font-size: 14px;
+            color: #e1e1e1;
+        }
+
+        .navbar .profile .info .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .navbar .profile .search {
+            margin-top: 10px;
+        }
+
+        .navbar .profile .search input {
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            width: 200px;
+            margin-right: 40px;
+        }
+
+
+        .form-container {
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+        }
+
+        h3 {
+            text-align: center;
+            color: #a42924;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .form-group button {
+            background-color: #a42924;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .form-group button:hover {
+            background-color: #822020;
+        }
+
+        .result,
+        .suggestions {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        .suggestions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .suggestions li {
+            margin: 10px 0;
+        }
+
+        .explanation {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="navbar">
+            <a href="inicial.html" class="title" style="display: flex; align-items: center;">
+                <img src="logo.png" alt="Logo" style="width: 80px; height: 80px; margin-right: 8px;">
+                <span style="display: flex; align-items: center;">Poupança Uai</span>
+            </a>
+            <div class="profile" style="margin-right: 60px;">
+                <img src="https://i.pravatar.cc/60" alt="Foto de Perfil">
+                <div class="info">
+                    <div class="name">Lucas de Souza<span class="status-dot"></span></div>
+                    <span>lucasteste@gmail.com</span>
+                    <div class="search">
+                        <input type="text" placeholder="Search Activities, messages">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="form-container">
+        <h3>Simulação de Impostos e Dedução</h3>
+
+        <div class="form-group">
+            <label for="income">Renda Mensal (R$)</label>
+            <input type="number" id="income" placeholder="Digite sua renda mensal" />
+        </div>
+
+        <div class="form-group">
+            <label for="education">Despesas com Educação (R$)</label>
+            <input type="number" id="education" placeholder="Despesas com educação" />
+        </div>
+
+        <div class="form-group">
+            <label for="health">Despesas com Saúde (R$)</label>
+            <input type="number" id="health" placeholder="Despesas com saúde" />
+        </div>
+
+        <div class="form-group">
+            <label for="previdencia">Previdência Privada (R$)</label>
+            <input type="number" id="previdencia" placeholder="Contribuições para previdência privada" />
+        </div>
+
+        <div class="form-group">
+            <label for="dependents">Número de Dependentes</label>
+            <input type="number" id="dependents" placeholder="Número de dependentes" />
+        </div>
+
+        <div class="form-group">
+            <button onclick="calculateTax()">Calcular Imposto</button>
+        </div>
+
+        <div class="result" id="result"></div>
+        <div class="suggestions" id="suggestions"></div>
+        <div class="explanation" id="explanation"></div>
+    </div>
+
+    <script>
+        function calculateTax() {
+            const income = parseFloat(document.getElementById('income').value);
+            const education = parseFloat(document.getElementById('education').value);
+            const health = parseFloat(document.getElementById('health').value);
+            const previdencia = parseFloat(document.getElementById('previdencia').value);
+            const dependents = parseInt(document.getElementById('dependents').value);
+
+            const resultDiv = document.getElementById('result');
+            const suggestionsDiv = document.getElementById('suggestions');
+            const explanationDiv = document.getElementById('explanation');
+
+            if (isNaN(income) || isNaN(education) || isNaN(health) || isNaN(previdencia) || isNaN(dependents) || income <= 0) {
+                resultDiv.textContent = 'Por favor, insira valores válidos para todos os campos.';
+                suggestionsDiv.innerHTML = '';
+                explanationDiv.innerHTML = '';
+                return;
+            }
+
+            const dependentDeduction = dependents * 2275.08;  // Dedução por dependente em 2024
+            const totalDeductions = education + health + previdencia + dependentDeduction;
+            const taxableIncome = income - totalDeductions;
+
+            let taxDue = 0;
+            let taxRate = 0;
+
+            // Cálculo simplificado do imposto com base em faixas de renda
+            if (taxableIncome <= 22847.76) {
+                taxDue = 0;
+            } else if (taxableIncome <= 33919.80) {
+                taxRate = 0.075;
+                taxDue = taxableIncome * taxRate - 1713.58;
+            } else if (taxableIncome <= 45012.60) {
+                taxRate = 0.15;
+                taxDue = taxableIncome * taxRate - 4257.57;
+            } else if (taxableIncome <= 55976.16) {
+                taxRate = 0.225;
+                taxDue = taxableIncome * taxRate - 7633.51;
+            } else {
+                taxRate = 0.275;
+                taxDue = taxableIncome * taxRate - 10432.32;
+            }
+
+            resultDiv.innerHTML = `
+                <strong>Imposto Devido:</strong> R$ ${taxDue.toFixed(2)}<br>
+                <strong>Renda Tributável Após Dedução:</strong> R$ ${taxableIncome.toFixed(2)}<br>
+            `;
+
+            suggestionsDiv.innerHTML = `
+                <h4>Sugestões para Reduzir Impostos:</h4>
+                <ul>
+                    <li>Considere aumentar sua contribuição para a previdência privada.</li>
+                    <li>Investir em educação e saúde pode proporcionar deduções vantajosas.</li>
+                    <li>Realizar doações para instituições de caridade também pode ser vantajoso.</li>
+                </ul>
+            `;
+
+            explanationDiv.innerHTML = `
+                <h4>Como Funciona a Dedução de Impostos?</h4>
+                <p>As deduções fiscais ajudam a reduzir sua base tributária, o que significa que você pagará menos imposto. Você pode deduzir despesas com educação, saúde, dependentes e previdência privada, entre outras.</p>
+                <p>As deduções legais permitem que você mantenha uma maior parte de sua renda, reduzindo sua carga tributária de forma significativa.</p>
+            `;
+        }
+    </script>
+
+</body>
+
+</html>
