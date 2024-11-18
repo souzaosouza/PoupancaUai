@@ -243,14 +243,14 @@
                 return;
             }
 
-            const dependentDeduction = dependents * 2275.08;  // Dedução por dependente em 2024
+            const dependentDeduction = dependents * 2275.08; 
             const totalDeductions = education + health + previdencia + dependentDeduction;
             const taxableIncome = income - totalDeductions;
 
             let taxDue = 0;
             let taxRate = 0;
 
-            // Cálculo simplificado do imposto com base em faixas de renda
+            
             if (taxableIncome <= 22847.76) {
                 taxDue = 0;
             } else if (taxableIncome <= 33919.80) {
