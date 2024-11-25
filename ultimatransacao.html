@@ -276,6 +276,38 @@
                 width: 90%;
             }
         }
+
+        .assistant-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #a42924;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .assistant-button:hover {
+            background-color: #9e2929;
+            transform: scale(1.1);
+        }
+
+        .muted {
+            background-color: #6c757d;
+        }
+
+        .muted:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
 
@@ -383,5 +415,47 @@
         </div>
     </div>
 </body>
+
+<button id="assistantButton"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background-color: #a42924; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
+    <i class="fas fa-volume-off"></i>
+</button>
+
+<script>
+    const assistantButton = document.getElementById('assistantButton');
+    let assistantActive = false;
+
+
+    assistantButton.addEventListener('click', () => {
+        assistantActive = !assistantActive;
+
+        if (assistantActive) {
+            assistantButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+            alert('Assistente ativado!');
+        } else {
+            assistantButton.innerHTML = '<i class="fas fa-volume-off"></i>';
+            alert('Assistente desativado!');
+        }
+    });
+
+
+    const elementsToRead = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li, button, a, span');
+
+
+    elementsToRead.forEach((element) => {
+        element.addEventListener('mouseover', () => {
+            if (assistantActive) {
+                const text = element.innerText.trim();
+                if (text) {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'pt-BR';
+                    window.speechSynthesis.speak(utterance);
+                }
+            }
+        });
+    });
+</script>
+
+
 
 </html>

@@ -20,6 +20,14 @@
             color: #333;
         }
 
+        .navbar a {
+            text-decoration: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -44,6 +52,48 @@
             text-shadow: none;
             text-decoration: none;
         }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .navbar .profile .info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .navbar .profile .info span {
+            font-size: 14px;
+            color: #e1e1e1;
+        }
+
+        .navbar .profile .info .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .navbar .profile .search {
+            margin-top: 10px;
+        }
+
+        .navbar .profile .search input {
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            width: 200px;
+            margin-right: 40px;
+        }
+
 
         .container {
             padding: 40px;
@@ -124,6 +174,37 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        .assistant-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #a42924;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+    
+        .assistant-button:hover {
+            background-color: #9e2929;
+            transform: scale(1.1);
+        }
+    
+        .muted {
+            background-color: #6c757d;
+        }
+    
+        .muted:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
 
@@ -135,6 +216,16 @@
                 <img src="logo.png" alt="Logo" style="width: 80px; height: 80px; margin-right: 8px;">
                 <span style="display: flex; align-items: center;">Poupança Uai</span>
             </a>
+            <div class="profile" style="margin-right: 60px;">
+                <img src="https://i.pravatar.cc/60" alt="Foto de Perfil">
+                <div class="info">
+                    <div class="name">Lucas de Souza<span class="status-dot"></span></div>
+                    <span>lucasteste@gmail.com</span>
+                    <div class="search">
+                        <input type="text" placeholder="Search Activities, messages">
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -171,7 +262,9 @@
             </div>
         </div>
     </div>
-
+    <button id="assistantButton" class="assistant-button muted">
+        <i class="fas fa-volume-off"></i>
+    </button>
     <script>
         function generateInvestmentIdeas() {
             const salary = parseFloat(document.getElementById('salary').value);
@@ -254,6 +347,40 @@
 
             return ideas;
         }
+
+        (function () {
+            const assistantButton = document.getElementById('assistantButton');
+            let assistantActive = false;
+
+            assistantButton.addEventListener('click', () => {
+                assistantActive = !assistantActive;
+
+                if (assistantActive) {
+                    assistantButton.classList.remove('muted');
+                    assistantButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    alert('Assistente ativado!');
+                } else {
+                    assistantButton.classList.add('muted');
+                    assistantButton.innerHTML = '<i class="fas fa-volume-off"></i>';
+                    alert('Assistente desativado!');
+                }
+            });
+
+            const elementsToRead = document.querySelectorAll('h3, label, button, .result, .investment-ideas, .investment-explanation');
+
+            elementsToRead.forEach((element) => {
+                element.addEventListener('mouseover', () => {
+                    if (assistantActive) {
+                        const text = element.innerText.trim();
+                        if (text) {
+                            const utterance = new SpeechSynthesisUtterance(text);
+                            utterance.lang = 'pt-BR';
+                            window.speechSynthesis.speak(utterance);
+                        }
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 

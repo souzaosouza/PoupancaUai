@@ -23,6 +23,13 @@
             align-items: center;
             flex-direction: column;
         }
+        .navbar a {
+            text-decoration: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
 
         .navbar {
             display: flex;
@@ -89,7 +96,6 @@
             width: 200px;
             margin-right: 40px;
         }
-
 
         .form-container {
             width: 90%;
@@ -163,6 +169,39 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
+
+        /* Estilos do botão do assistente virtual */
+        .assistant-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #a42924;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .assistant-button:hover {
+            background-color: #9e2929;
+            transform: scale(1.1);
+        }
+
+        .muted {
+            background-color: #6c757d;
+        }
+
+        .muted:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
 
@@ -224,7 +263,48 @@
         <div class="explanation" id="explanation"></div>
     </div>
 
+    <!-- Botão do assistente virtual -->
+    <button id="assistant-button" class="assistant-button muted">
+        <i class="fas fa-volume-off"></i>
+    </button>
+
     <script>
+        // Lógica para o assistente virtual
+        (function () {
+            const assistantButton = document.getElementById('assistant-button');
+            let assistantActive = false;
+
+            assistantButton.addEventListener('click', () => {
+                assistantActive = !assistantActive;
+
+                if (assistantActive) {
+                    assistantButton.classList.remove('muted');
+                    assistantButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    alert('Assistente ativado!');
+                } else {
+                    assistantButton.classList.add('muted');
+                    assistantButton.innerHTML = '<i class="fas fa-volume-off"></i>';
+                    alert('Assistente desativado!');
+                }
+            });
+
+            const elementsToRead = document.querySelectorAll('h3, label, button, .result, .suggestions, .explanation');
+
+            elementsToRead.forEach((element) => {
+                element.addEventListener('mouseover', () => {
+                    if (assistantActive) {
+                        const text = element.innerText.trim();
+                        if (text) {
+                            const utterance = new SpeechSynthesisUtterance(text);
+                            utterance.lang = 'pt-BR';
+                            window.speechSynthesis.speak(utterance);
+                        }
+                    }
+                });
+            });
+        })();
+
+        // Função de cálculo de impostos
         function calculateTax() {
             const income = parseFloat(document.getElementById('income').value);
             const education = parseFloat(document.getElementById('education').value);
@@ -250,7 +330,6 @@
             let taxDue = 0;
             let taxRate = 0;
 
-            
             if (taxableIncome <= 22847.76) {
                 taxDue = 0;
             } else if (taxableIncome <= 33919.80) {
@@ -288,7 +367,6 @@
             `;
         }
     </script>
-
 </body>
 
 </html>

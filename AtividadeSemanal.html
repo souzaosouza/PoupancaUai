@@ -367,7 +367,7 @@
                 font-size: 16px;
             }
 
-            
+
             table,
             th,
             td {
@@ -377,16 +377,16 @@
             table {
                 display: block;
                 overflow-x: auto;
-                white-space: nowrap;                        
+                white-space: nowrap;
             }
 
-            
+
             .add-button {
                 padding: 10px;
                 font-size: 14px;
             }
 
-           
+
             .modal-content {
                 width: 90%;
                 padding: 20px;
@@ -406,7 +406,7 @@
                 padding: 10px;
             }
 
-            
+
             .assistant-button {
                 width: 50px;
                 height: 50px;
@@ -521,50 +521,88 @@
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-
-
         let assistantActive = false;
 
-        function login() {
-            var email = document.getElementById('form1Example13').value;
-            var password = document.getElementById('form1Example23').value;
+function login() {
+    var email = document.getElementById('form1Example13').value;
+    var password = document.getElementById('form1Example23').value;
 
-            if (email && password) {
-                window.location.href = 'inicial.html';
-            } else {
-                alert('Por favor, preencha todos os campos.');
-            }
-        }
+    if (email && password) {
+        window.location.href = 'inicial.html';
+    } else {
+        alert('Por favor, preencha todos os campos.');
+    }
+}
 
-        function readText(text) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            window.speechSynthesis.speak(utterance);
-        }
+function readText(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(utterance);
+}
 
+document.addEventListener('DOMContentLoaded', () => {
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.readable').forEach(element => {
-                element.addEventListener('mouseover', () => {
-                    if (assistantActive) {
-                        const title = element.getAttribute('aria-label');
-                        readText(title);
-                    }
-                });
-            });
-
-
-            document.getElementById('assistantButton').addEventListener('click', () => {
-                assistantActive = !assistantActive;
-                const button = document.getElementById('assistantButton');
-                if (assistantActive) {
-                    button.classList.remove('muted');
-                    readText("Você ativou o assistente virtual.");
-                } else {
-                    button.classList.add('muted');
-                    readText("Você desativou o assistente virtual.");
+   
+    document.querySelectorAll('.readable').forEach(element => {
+        element.addEventListener('mouseover', () => {
+            if (assistantActive) {
+                const title = element.getAttribute('aria-label') || element.textContent.trim();
+                if (title) {
+                    readText(title);
                 }
-            });
+            }
         });
+    });
+
+    document.querySelectorAll('.btn, .form-check-label').forEach(element => {
+        element.addEventListener('mouseover', () => {
+            if (assistantActive) {
+                const title = element.getAttribute('aria-label') || element.textContent.trim();
+                if (title) {
+                    readText(title);
+                }
+            }
+        });
+    });
+
+    
+    document.getElementById('assistantButton').addEventListener('click', () => {
+        assistantActive = !assistantActive;
+        const button = document.getElementById('assistantButton');
+        if (assistantActive) {
+            button.classList.remove('muted');
+            readText('Assistente ativado.');
+        } else {
+            button.classList.add('muted');
+            readText('Assistente desativado.');
+        }
+    });
+});
+
+
+function openModal() {
+    document.getElementById("myModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+}
+
+function selectTipo(tipo) {
+    console.log("Tipo selecionado:", tipo);
+}
+
+function addTransaction() {
+    const data = document.getElementById('data').value;
+    const detalhes = document.getElementById('detalhes').value;
+    const valor = document.getElementById('valor').value;
+    const tipo = document.querySelector('.tipo-entrada.selected') ? 'Entrada' : 'Saída';
+
+   
+}
+
+function formatCurrency(input) {
+    input.value = input.value.replace(/\D/g, '').replace(/(\d)(\d{2})$/, '$1,$2').replace(/(\d)(\d{3}),/, '$1.$2,');
+}
 
         let transactions = [];
         let selectedTipo = '';
@@ -670,158 +708,12 @@
                 enabled: true
             },
             xaxis: {
-                categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set'],
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
             },
-            yaxis: {
-                title: {
-                    text: 'Valor (R$)',
-                },
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                shared: true,
-                intersect: false
-            }
         };
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
-
-        function formatCurrency(input) {
-            let value = input.value.replace(/\D/g, '');
-            value = (value / 100).toFixed(2) + '';
-            value = value.replace('.', ',');
-            value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-            input.value = value;
-        }
-        let isMuted = false;
-        let assistantVoice;
-        const utterance = new SpeechSynthesisUtterance();
-
-
-        function initializeAssistant() {
-            const voices = speechSynthesis.getVoices();
-            assistantVoice = voices.find(voice => voice.name.includes('Google US English')) || voices[0];
-            utterance.voice = assistantVoice;
-        }
-
-
-        function toggleAssistant() {
-            const assistantButton = document.getElementById('assistantButton');
-            isMuted = !isMuted;
-            assistantButton.classList.toggle('muted');
-
-            if (!isMuted) {
-                speak('Assistente ativado. Posicione o mouse sobre os elementos para obter ajuda.');
-            } else {
-                speak('Assistente desativado.');
-            }
-        }
-
-
-        function speak(message) {
-            if (!isMuted) {
-                utterance.text = message;
-                speechSynthesis.speak(utterance);
-            }
-        }
-
-
-        function describeElement(event) {
-            if (!isMuted) {
-                const element = event.target;
-                const description = element.getAttribute('data-description');
-                if (description) {
-                    speak(description);
-                }
-            }
-        }
-
-
-        document.querySelectorAll('*').forEach(element => {
-            element.addEventListener('mouseover', describeElement);
-        });
-
-
-        window.addEventListener('load', initializeAssistant);
-
-        let transactionType = 'Entrada';
-
-        function toggleAssistant() {
-            const assistantText = transactionType === 'Entrada' ? 'Você está prestes a adicionar uma entrada.' : 'Você está prestes a adicionar uma saída.';
-            const speech = new SpeechSynthesisUtterance(assistantText);
-            speech.lang = 'pt-BR';
-            speechSynthesis.speak(speech);
-        }
-
-        function setTransactionType(type) {
-            transactionType = type;
-            const buttonText = type === 'Entrada' ? 'Entrada' : 'Saída';
-            toggleAssistant();
-        }
-
-        function openModal() {
-            const modal = document.getElementById("myModal");
-            modal.style.display = "block";
-            const speech = new SpeechSynthesisUtterance('Você abriu o modal para adicionar uma transação.');
-            speech.lang = 'pt-BR';
-            speechSynthesis.speak(speech);
-        }
-
-        function closeModal() {
-            document.getElementById("myModal").style.display = "none";
-            const speech = new SpeechSynthesisUtterance('Você fechou o modal.');
-            speech.lang = 'pt-BR';
-            speechSynthesis.speak(speech);
-        }
-
-        document.getElementById("addTransactionBtn").onclick = openModal;
-
-        function addTransaction() {
-            const description = document.getElementById("description").value;
-            const date = document.getElementById("date").value;
-            const value = document.getElementById("value").value;
-            const transactionTable = document.getElementById("transactionTable").getElementsByTagName('tbody')[0];
-
-            const newRow = transactionTable.insertRow();
-            newRow.insertCell(0).innerText = date;
-            newRow.insertCell(1).innerText = description;
-            newRow.insertCell(2).innerText = transactionType;
-            newRow.insertCell(3).innerText = `R$ ${parseFloat(value).toFixed(2)}`;
-            newRow.insertCell(4).innerHTML = '<button class="remove-button" onclick="removeTransaction(this)">Remover</button>';
-
-            const speech = new SpeechSynthesisUtterance('Transação adicionada com sucesso.');
-            speech.lang = 'pt-BR';
-            speechSynthesis.speak(speech);
-
-            closeModal();
-            clearModalInputs();
-        }
-
-        function clearModalInputs() {
-            document.getElementById("description").value = '';
-            document.getElementById("date").value = '';
-            document.getElementById("value").value = '';
-        }
-
-        function removeTransaction(button) {
-            const row = button.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-
-            const speech = new SpeechSynthesisUtterance('Transação removida com sucesso.');
-            speech.lang = 'pt-BR';
-            speechSynthesis.speak(speech);
-        }
-
-        window.onclick = function (event) {
-            const modal = document.getElementById("myModal");
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-
     </script>
     <button id="assistantButton" class="assistant-button" aria-label="Ativar assistente virtual">
         <i class="fas fa-volume-up"></i>
